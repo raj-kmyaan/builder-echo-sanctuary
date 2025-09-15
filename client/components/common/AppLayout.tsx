@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Bell, Bot, GraduationCap, LayoutDashboard, BookOpen, CreditCard, Map as MapIcon, ShoppingBag, Users, Briefcase, HelpCircle, Settings, LogOut, Users2, Moon, Sun } from "lucide-react";
+import { Bell, Bot, GraduationCap, LayoutDashboard, BookOpen, CreditCard, Map as MapIcon, ShoppingBag, Users, Briefcase, HelpCircle, Settings, LogOut, Users2, Moon, Sun, CalendarDays } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RoleProvider, useRole } from "@/context/role";
 import { useMemo } from "react";
@@ -81,6 +81,8 @@ function SidebarNav() {
     return [
       { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
       { to: "/attendance", icon: BookOpen, label: "Attendance" },
+      { to: "/timetable-wizard", icon: CalendarDays, label: "Timetable Wizard" },
+      { to: "/placements", icon: Briefcase, label: "Placements" },
       { to: "/courses", icon: BookOpen, label: "My Courses" },
       { to: "/fees", icon: CreditCard, label: "Fees" },
       { to: "/map", icon: MapIcon, label: "Campus Map" },

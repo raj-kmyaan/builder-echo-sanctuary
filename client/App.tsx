@@ -12,6 +12,9 @@ import AppLayout from "@/components/common/AppLayout";
 import DashboardPage from "@/pages/Dashboard";
 import Placeholder from "@/pages/Placeholder";
 import AttendancePage from "@/pages/Attendance";
+import TimetableWizardPage from "@/pages/TimetableWizard";
+import PlacementsPage from "@/pages/Placements";
+import ProfilePage from "@/pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +39,9 @@ const App = () => (
             <Route path="/helpdesk" element={<Placeholder title={'Helpdesk'} />} />
             <Route path="/map" element={<Placeholder title={'Interactive Campus Map'} />} />
             <Route path="/settings" element={<Placeholder title={'Settings'} />} />
-            <Route path="/profile/:id" element={<Placeholder title={'Student Profile'} />} />
+            <Route path="/timetable-wizard" element={<TimetableWizardPage />} />
+            <Route path="/placements" element={<PlacementsPage />} />
+            <Route path="/profile/:id" element={<ProfilePage />} />
             <Route path="/class/:id/attendance" element={<Placeholder title={'Attendance'} />} />
           </Route>
           <Route path="*" element={<NotFound />} />
