@@ -5,8 +5,8 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const alerts = [
-  { name: "Samiksha Patel", reason: "Attendance dropped 20% this week", tags: ["Attendance"], photo: "/default-avatar.png" },
-  { name: "Michael Chen", reason: "Missed Midterm Exam", tags: ["Grades"], photo: "/default-avatar.png" },
+  { name: "Samiksha Patel", reason: "Attendance dropped 20% this week", tags: ["Attendance"], photo: "/placeholder.svg" },
+  { name: "Michael Chen", reason: "Missed Midterm Exam", tags: ["Grades"], photo: "/placeholder.svg" },
 ];
 
 const pulseData = [
