@@ -151,6 +151,10 @@ function SidebarNav() {
 }
 
 export default function AppLayout() {
+  if (typeof document !== 'undefined') {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') document.documentElement.classList.add('dark');
+  }
   return (
     <RoleProvider>
       <SidebarProvider>
