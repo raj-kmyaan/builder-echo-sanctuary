@@ -24,6 +24,14 @@ function Navbar() {
         </div>
       </div>
       <div className="flex items-center gap-2">
+        <Button variant="ghost" size="icon" className="rounded-lg" onClick={() => {
+          const root = document.documentElement;
+          const isDark = root.classList.toggle('dark');
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }}>
+          <Sun className="h-5 w-5 dark:hidden" />
+          <Moon className="h-5 w-5 hidden dark:block" />
+        </Button>
         <Button variant="ghost" size="icon" className="rounded-lg"><Bell className="h-5 w-5" /></Button>
         <Button variant="ghost" size="icon" className="rounded-lg"><Bot className="h-5 w-5" /></Button>
         <DropdownMenu>
