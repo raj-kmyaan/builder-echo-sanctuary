@@ -1,4 +1,4 @@
-import { Outlet, useLocation, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { SidebarProvider, Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInput, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator, SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,7 +12,6 @@ import { useMemo } from "react";
 
 function Navbar() {
   const { user, setRole } = useRole();
-  const navigate = useNavigate();
   return (
     <div className="flex h-18 items-center justify-between gap-4 px-6 py-4 border-b bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/60">
       <div className="flex items-center gap-3 min-w-0">
@@ -54,8 +53,8 @@ function Navbar() {
             <DropdownMenuItem onClick={() => setRole("faculty")}>Switch to Faculty</DropdownMenuItem>
             <DropdownMenuItem onClick={() => setRole("admin")}>Switch to Admin</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => navigate("/settings")}><Settings className="mr-2 h-4 w-4" /> Settings</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/login")} className="text-red-600 focus:text-red-600"><LogOut className="mr-2 h-4 w-4" /> Logout</DropdownMenuItem>
+            <DropdownMenuItem asChild><Link to="/settings"><Settings className="mr-2 h-4 w-4" /> Settings</Link></DropdownMenuItem>
+            <DropdownMenuItem asChild className="text-red-600 focus:text-red-600"><Link to="/login"><LogOut className="mr-2 h-4 w-4" /> Logout</Link></DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -65,7 +64,7 @@ function Navbar() {
 
 function SidebarNav() {
   const { user } = useRole();
-  const location = useLocation();
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
   const items = useMemo(() => {
     if (user.role === "faculty") {
@@ -113,7 +112,7 @@ function SidebarNav() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.to}>
-                  <SidebarMenuButton asChild isActive={location.pathname === item.to}>
+                  <SidebarMenuButton asChild isActive={pathname === item.to}>
                     <Link to={item.to} className="flex items-center gap-2">
                       <item.icon className="h-4 w-4" />
                       <span>{item.label}</span>
@@ -130,7 +129,7 @@ function SidebarNav() {
         <SidebarMenu>
           {footer.map((item) => (
             <SidebarMenuItem key={item.to}>
-              <SidebarMenuButton asChild isActive={location.pathname === item.to}>
+              <SidebarMenuButton asChild isActive={pathname === item.to}>
                 <Link to={item.to} className="flex items-center gap-2">
                   <item.icon className="h-4 w-4" />
                   <span>{item.label}</span>
