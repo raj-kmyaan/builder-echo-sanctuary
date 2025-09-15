@@ -18,7 +18,7 @@ const defaultUser: User = {
   id: "u_001",
   name: "Alex Johnson",
   role: "student",
-  avatarUrl: "/default-avatar.png",
+  avatarUrl: "/placeholder.svg",
 };
 
 const RoleContext = createContext<RoleContextType | null>(null);
