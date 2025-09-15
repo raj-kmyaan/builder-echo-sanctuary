@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import AppLayout from "@/components/common/AppLayout";
 import DashboardPage from "@/pages/Dashboard";
 import Placeholder from "@/pages/Placeholder";
+import AttendancePage from "@/pages/Attendance";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/courses" element={<Placeholder title={'My Courses'} />} />
             <Route path="/classes" element={<Placeholder title={'My Classes'} />} />
             <Route path="/students" element={<Placeholder title={'Students'} />} />
+            <Route path="/attendance" element={<AttendancePage />} />
             <Route path="/fees" element={<Placeholder title={'Fees'} />} />
             <Route path="/marketplace" element={<Placeholder title={'Marketplace'} />} />
             <Route path="/mentorship" element={<Placeholder title={'Mentorship'} />} />

@@ -71,6 +71,7 @@ function SidebarNav() {
     if (user.role === "faculty") {
       return [
         { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+        { to: "/attendance", icon: BookOpen, label: "Attendance" },
         { to: "/classes", icon: BookOpen, label: "My Classes" },
         { to: "/students", icon: Users2, label: "Students" },
         { to: "/map", icon: MapIcon, label: "Campus Map" },
@@ -80,6 +81,7 @@ function SidebarNav() {
     // student default
     return [
       { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+      { to: "/attendance", icon: BookOpen, label: "Attendance" },
       { to: "/courses", icon: BookOpen, label: "My Courses" },
       { to: "/fees", icon: CreditCard, label: "Fees" },
       { to: "/map", icon: MapIcon, label: "Campus Map" },
