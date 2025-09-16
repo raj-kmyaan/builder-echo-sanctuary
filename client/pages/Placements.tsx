@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { addApplication, getApplications } from "@/lib/store";
+import { useRole } from "@/context/role";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -27,8 +29,11 @@ function Ring({ value }:{ value:number }){
 }
 
 export default function PlacementsPage(){
+  const { user } = useRole();
   const [active, setActive] = useState<string | null>(null);
   const selected = useMemo(()=> JOBS.find(j=>j.id===active) || null, [active]);
+  const [apps, setApps] = useState(() => getApplications(user.id));
+  useEffect(()=>{ setApps(getApplications(user.id)); }, [user.id]);
 
   return (
     <div className="space-y-6">
@@ -82,7 +87,12 @@ export default function PlacementsPage(){
                         <li>Good communication</li>
                       </ul>
                     </div>
-                    <Button size="lg" className="rounded-lg">Apply Using My Portfolio</Button>
+                    <Button size="lg" className="rounded-lg" onClick={()=>{
+                      if(selected){
+                        addApplication(user.id, { id: selected.id, company: selected.company, title: selected.title, date: new Date().toISOString().slice(0,10), status: "Under Review" });
+                        setApps(getApplications(user.id));
+                      }
+                    }}>Apply Using My Portfolio</Button>
                   </CardContent>
                 </Card>
               )}
@@ -102,7 +112,7 @@ export default function PlacementsPage(){
                   </tr>
                 </thead>
                 <tbody>
-                  {APPLICATIONS.map(a => (
+                  {apps.map(a => (
                     <tr key={a.id} className="border-b">
                       <td className="p-3">{a.company}</td>
                       <td className="p-3">{a.title}</td>
