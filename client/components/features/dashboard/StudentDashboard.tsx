@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 import AttendanceDonutChart from "@/components/charts/AttendanceDonutChart";
 import { useRole } from "@/context/role";
+import { getTimetable } from "@/lib/store";
 
 const todaySchedule = [
   { time: "9:00 AM", course: "CS101 - Intro to CS", room: "Room A-204" },
@@ -26,6 +27,8 @@ const recentGrades = [
 
 export default function StudentDashboard() {
   const { user } = useRole();
+  const saved = getTimetable(user.id);
+  const computedSchedule = saved.length ? saved.map(b => ({ time: `${b.time}:00`, course: b.course, room: `${b.day}` })) : todaySchedule;
   return (
     <div className="grid grid-cols-12 gap-6">
       <Card className="col-span-12 bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
@@ -42,7 +45,7 @@ export default function StudentDashboard() {
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
-              {todaySchedule.map((item, idx) => (
+              {computedSchedule.map((item, idx) => (
                 <li key={idx} className={cn("grid grid-cols-12 items-start gap-3 rounded-lg border p-3", item.gap && "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900")}> 
                   <span className="col-span-3 md:col-span-2 flex items-center gap-2 text-sm text-muted-foreground"><Clock className="h-4 w-4" /> {item.time}</span>
                   <div className="col-span-9 md:col-span-10">
