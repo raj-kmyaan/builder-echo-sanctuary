@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from "react";
+import { setTimetable } from "@/lib/store";
+import { useRole } from "@/context/role";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -74,6 +76,7 @@ export default function TimetableWizardPage() {
   const options = useMemo(()=> genOptions(selected, prefs), [selected, prefs]);
   const [active, setActive] = useState(options[0]?.key || "balanced");
 
+  const { user } = useRole();
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -174,7 +177,10 @@ export default function TimetableWizardPage() {
               ))}
             </Tabs>
             <div className="flex justify-end">
-              <Button size="lg" className="rounded-lg">Confirm & Register This Schedule</Button>
+              <Button size="lg" className="rounded-lg" onClick={()=>{
+                const chosen = options.find(o=>o.key===active);
+                if (chosen) setTimetable(user.id, chosen.blocks);
+              }}>Confirm & Register This Schedule</Button>
             </div>
           </CardContent>
         </Card>
