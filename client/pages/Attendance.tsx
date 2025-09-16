@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Download, LogIn, Plus, Save } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { scopeKey, getStudents as storeGetStudents, setStudents as storeSetStudents, addAttendance } from "@/lib/store";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useRole } from "@/context/role";
 
@@ -57,27 +58,39 @@ export default function AttendancePage() {
   const [date, setDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [endDate, setEndDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [students, setStudents] = useState<Student[]>([]);
+
+  const loadStudents = () => {
+    const key = scopeKey(activeDept, year, semester);
+    const stored = storeGetStudents(key) as unknown as Student[];
+    if (stored.length) setStudents(stored);
+  };
   const [nameDraft, setNameDraft] = useState("");
   const [rollDraft, setRollDraft] = useState("");
 
   const semesters = useMemo(() => yearToSemesters(year), [year]);
 
+  useMemo(() => { loadStudents(); return undefined; }, [activeDept, year, semester]);
+
   const isFaculty = user.role === "faculty";
 
   const handleAddStudent = () => {
     if (!nameDraft || !rollDraft) return;
-    setStudents((prev) => [
-      ...prev,
-      {
-        rollNo: rollDraft,
-        name: nameDraft,
-        year,
-        semester,
-        department: activeDept,
-        present: true,
-        overall: 0,
-      },
-    ]);
+    setStudents((prev) => {
+      const next = [
+        ...prev,
+        {
+          rollNo: rollDraft,
+          name: nameDraft,
+          year,
+          semester,
+          department: activeDept,
+          present: true,
+          overall: 0,
+        },
+      ];
+      storeSetStudents(scopeKey(activeDept, year, semester), next);
+      return next;
+    });
     setNameDraft("");
     setRollDraft("");
   };
@@ -119,7 +132,13 @@ export default function AttendancePage() {
   };
 
   const saveAttendance = () => {
-    setStudents((prev) => prev.map((s) => ({ ...s, overall: (s.overall ?? 0) + (s.present ? 1 : 0) })));
+    const scope = scopeKey(activeDept, year, semester);
+    addAttendance({ scope, date, subject, rows: students.map(s => ({ rollNo: s.rollNo, name: s.name, present: !!s.present, medicalLeave: !!s.medicalLeave, urgency: s.urgency, remark: s.remark })) });
+    setStudents((prev) => {
+      const next = prev.map((s) => ({ ...s, overall: (s.overall ?? 0) + (s.present ? 1 : 0) }));
+      storeSetStudents(scope, next);
+      return next;
+    });
   };
 
   const chartData = SUBJECTS.map((sub, i) => ({
