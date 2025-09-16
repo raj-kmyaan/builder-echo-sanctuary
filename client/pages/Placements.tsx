@@ -107,7 +107,7 @@ export default function PlacementsPage(){
                       <td className="p-3">{a.company}</td>
                       <td className="p-3">{a.title}</td>
                       <td className="p-3">{a.date}</td>
-                      <td className="p-3"><span className={a.status==="Interviewing"?"bg-green-100 text-green-700":"bg-amber-100 text-amber-700" + " px-2 py-0.5 rounded text-xs"}>{a.status}</span></td>
+                      <td className="p-3"><span className={(a.status==="Interviewing"?"bg-green-100 text-green-700":"bg-amber-100 text-amber-700") + " px-2 py-0.5 rounded text-xs"}>{a.status}</span></td>
                     </tr>
                   ))}
                 </tbody>
