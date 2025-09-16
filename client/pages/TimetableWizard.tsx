@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,8 +48,8 @@ function CalendarView({ blocks }: { blocks: { course: string; day: string; time:
       <div className="grid" style={{ gridTemplateColumns: `120px repeat(${days.length}, 1fr)` }}>
         <div />{days.map(d => <div key={d} className="p-2 text-sm font-medium text-center">{d}</div>)}
         {times.map(t => (
-          <>
-            <div key={`t-${t}`} className="border-t p-2 text-xs text-muted-foreground">{t}:00</div>
+          <React.Fragment key={t}>
+            <div className="border-t p-2 text-xs text-muted-foreground">{t}:00</div>
             {days.map((d) => (
               <div key={`${d}-${t}`} className="border-t border-l relative h-16">
                 {blocks.filter(b=>b.day===d && b.time===t).map((b, i)=>(
@@ -60,7 +60,7 @@ function CalendarView({ blocks }: { blocks: { course: string; day: string; time:
                 ))}
               </div>
             ))}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
@@ -90,7 +90,7 @@ export default function TimetableWizardPage() {
                 <div className="space-y-2">
                   {COURSES.map(c => (
                     <label key={c.code} className="flex items-center gap-3 rounded-md border p-2">
-                      <Checkbox checked={selected.includes(c.title)} onCheckedChange={(v)=> setSelected(prev => v ? [...prev, c.title] : prev.filter(x=>x!==c.title))} />
+                      <Checkbox checked={selected.includes(c.title)} onCheckedChange={(v)=> setSelected(prev => v === true ? [...prev, c.title] : prev.filter(x=>x!==c.title))} />
                       <div>
                         <div className="font-medium">{c.title}</div>
                         <div className="text-xs text-muted-foreground">{c.code}</div>
@@ -143,7 +143,7 @@ export default function TimetableWizardPage() {
                   <div className="space-y-2">
                     {PROFESSORS.map((p)=> (
                       <label key={p} className="flex items-center gap-2">
-                        <Checkbox checked={prefs.prioritized.includes(p)} onCheckedChange={(v)=> setPrefs(prev => ({ ...prev, prioritized: v ? [...prev.prioritized, p] : prev.prioritized.filter(x=>x!==p) }))} />
+                        <Checkbox checked={prefs.prioritized.includes(p)} onCheckedChange={(v)=> setPrefs(prev => ({ ...prev, prioritized: v === true ? [...prev.prioritized, p] : prev.prioritized.filter(x=>x!==p) }))} />
                         <span>{p}</span>
                       </label>
                     ))}
