@@ -41,12 +41,33 @@ export default function StudentDashboard() {
       <div className="col-span-12 lg:col-span-8 space-y-6">
         <Card>
           <CardHeader>
+            <CardTitle>Announcements</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {(() => {
+              try {
+                const raw = localStorage.getItem('compass:broadcasts') || '[]';
+                const list: any[] = JSON.parse(raw);
+                const mine = list.filter(b => (!b.filter?.dept || b.filter.dept === user.department) && (!b.filter?.year || b.filter.year === user.year));
+                if (mine.length===0) return <div className="text-sm text-muted-foreground">No new announcements.</div>;
+                return (
+                  <ul className="text-sm space-y-2">
+                    {mine.slice(0,3).map((b,i)=> (<li key={b.id + i}><span className="font-medium">{b.title}:</span> {b.body}</li>))}
+                  </ul>
+                );
+              } catch { return <div className="text-sm text-muted-foreground">No new announcements.</div>; }
+            })()}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
             <CardTitle>Today's Schedule</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-4">
               {computedSchedule.map((item, idx) => (
-                <li key={idx} className={cn("grid grid-cols-12 items-start gap-3 rounded-lg border p-3", item.gap && "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900")}> 
+                <li key={idx} className={cn("grid grid-cols-12 items-start gap-3 rounded-lg border p-3", item.gap && "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900")}>
                   <span className="col-span-3 md:col-span-2 flex items-center gap-2 text-sm text-muted-foreground"><Clock className="h-4 w-4" /> {item.time}</span>
                   <div className="col-span-9 md:col-span-10">
                     <div className={cn("font-medium", item.gap && "text-amber-700 dark:text-amber-200")}>{item.course}</div>
