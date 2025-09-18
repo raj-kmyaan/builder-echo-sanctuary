@@ -73,8 +73,21 @@ function SidebarNav() {
         { to: "/calendar", icon: CalendarDays, label: "Calendar" },
         { to: "/tasks", icon: CheckSquare, label: "Tasks" },
         { to: "/attendance", icon: BookOpen, label: "Attendance" },
+        { to: "/grading", icon: BookOpen, label: "Grading" },
         { to: "/classes", icon: BookOpen, label: "My Classes" },
         { to: "/students", icon: Users2, label: "Students" },
+        { to: "/resources", icon: BookOpen, label: "Resource Booking" },
+        { to: "/map", icon: MapIcon, label: "Campus Map" },
+        { to: "/helpdesk", icon: HelpCircle, label: "Helpdesk" },
+      ];
+    }
+    if (user.role === "admin") {
+      return [
+        { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+        { to: "/admin/analytics", icon: LayoutDashboard, label: "Analytics Hub" },
+        { to: "/admin/broadcasts", icon: LayoutDashboard, label: "Broadcasts" },
+        { to: "/admin/tickets", icon: HelpCircle, label: "Tickets" },
+        { to: "/admin/users", icon: Users2, label: "Users" },
         { to: "/map", icon: MapIcon, label: "Campus Map" },
         { to: "/helpdesk", icon: HelpCircle, label: "Helpdesk" },
       ];
@@ -92,7 +105,7 @@ function SidebarNav() {
       { to: "/fees", icon: CreditCard, label: "Fees" },
       { to: "/map", icon: MapIcon, label: "Campus Map" },
       { to: "/marketplace", icon: ShoppingBag, label: "Marketplace" },
-      { to: "/mentorship", icon: Users, label: "Mentorship" },
+      { to: "/mentorship", icon: Users, label: "Study Groups" },
       { to: "/portfolio", icon: Briefcase, label: "My Portfolio" },
       { to: "/helpdesk", icon: HelpCircle, label: "Helpdesk" },
     ];
