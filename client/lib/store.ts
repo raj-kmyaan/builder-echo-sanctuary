@@ -90,3 +90,37 @@ export function getEvents(userId: string): EventItem[] {
 export function setEvents(userId: string, events: EventItem[]) {
   write(`compass:events:${userId}`, events);
 }
+
+// Resource bookings
+export type Booking = { id: string; resourceId: string; title: string; start: string; end: string; userId: string };
+export function getBookings(resourceId: string): Booking[] { return read<Booking[]>(`compass:bookings:${resourceId}`, []); }
+export function setBookings(resourceId: string, items: Booking[]) { write(`compass:bookings:${resourceId}`, items); }
+
+// Marketplace & Lost/Found
+export type MarketItem = { id: string; type: "sale"|"lost"|"found"; title: string; description?: string; price?: number; imageUrl?: string; userId: string; date: string };
+export function getMarket(): MarketItem[] { return read<MarketItem[]>(`compass:market`, []); }
+export function setMarket(items: MarketItem[]) { write(`compass:market`, items); }
+
+// Tickets (Helpdesk)
+export type Ticket = { id: string; userId: string; category: string; subject: string; body: string; status: "open"|"in_progress"|"resolved"; createdAt: string };
+export function getTickets(): Ticket[] { return read<Ticket[]>(`compass:tickets`, []); }
+export function setTickets(items: Ticket[]) { write(`compass:tickets`, items); }
+
+// Broadcasts (announcements)
+export type Broadcast = { id: string; title: string; body: string; date: string; filter?: { dept?: Dept; year?: Year } };
+export function getBroadcasts(): Broadcast[] { return read<Broadcast[]>(`compass:broadcasts`, []); }
+export function addBroadcast(b: Broadcast) { const all = getBroadcasts(); all.unshift(b); write(`compass:broadcasts`, all); }
+
+// Users directory (admin)
+export type UserLite = { id: string; name: string; role: "student"|"faculty"|"admin"|"alumni"; department?: Dept; year?: Year };
+export function getUsers(): UserLite[] { return read<UserLite[]>(`compass:users`, [
+  { id: "u-stu-1", name: "Alex Johnson", role: "student", department: "Computer Science", year: "Second" },
+  { id: "u-fac-1", name: "Dr. Rao", role: "faculty", department: "Computer Science" },
+  { id: "u-adm-1", name: "Registrar", role: "admin" },
+]); }
+export function setUsers(items: UserLite[]) { write(`compass:users`, items); }
+
+// Grades (per course)
+export type GradeEntry = { rollNo: string; assignment: string; score: number; total: number };
+export function getGrades(courseId: string): GradeEntry[] { return read<GradeEntry[]>(`compass:grades:${courseId}`, []); }
+export function setGrades(courseId: string, rows: GradeEntry[]) { write(`compass:grades:${courseId}`, rows); }
