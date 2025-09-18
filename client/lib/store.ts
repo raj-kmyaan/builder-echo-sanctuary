@@ -56,3 +56,37 @@ export function addApplication(userId: string, app: Application) {
     write(`compass:apps:${userId}`, list);
   }
 }
+
+// Tasks / Kanban
+export type Task = {
+  id: string;
+  title: string;
+  status: "todo" | "doing" | "done";
+  dueDate?: string;
+  description?: string;
+  tags?: string[];
+};
+export function getTasks(userId: string): Task[] {
+  return read<Task[]>(`compass:tasks:${userId}`, []);
+}
+export function setTasks(userId: string, tasks: Task[]) {
+  write(`compass:tasks:${userId}`, tasks);
+}
+
+// Notes
+export type Note = { id: string; title: string; content: string; updatedAt: string };
+export function getNotes(userId: string): Note[] {
+  return read<Note[]>(`compass:notes:${userId}`, []);
+}
+export function setNotes(userId: string, notes: Note[]) {
+  write(`compass:notes:${userId}`, notes);
+}
+
+// Calendar events
+export type EventItem = { id: string; title: string; start: string; end?: string; location?: string; description?: string };
+export function getEvents(userId: string): EventItem[] {
+  return read<EventItem[]>(`compass:events:${userId}`, []);
+}
+export function setEvents(userId: string, events: EventItem[]) {
+  write(`compass:events:${userId}`, events);
+}
