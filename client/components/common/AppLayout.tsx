@@ -82,6 +82,9 @@ function SidebarNav() {
     // student default
     return [
       { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+      { to: "/calendar", icon: CalendarDays, label: "Calendar" },
+      { to: "/tasks", icon: CheckSquare, label: "Tasks" },
+      { to: "/notes", icon: StickyNote, label: "Notes" },
       { to: "/attendance", icon: BookOpen, label: "Attendance" },
       { to: "/timetable-wizard", icon: CalendarDays, label: "Timetable Wizard" },
       { to: "/placements", icon: Briefcase, label: "Placements" },
