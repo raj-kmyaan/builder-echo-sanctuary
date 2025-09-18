@@ -46,6 +46,9 @@ const App = () => (
             <Route path="/placements" element={<PlacementsPage />} />
             <Route path="/profile/:id" element={<ProfilePage />} />
             <Route path="/class/:id/attendance" element={<Placeholder title={'Attendance'} />} />
+            <Route path="/tasks" element={<TasksPage />} />
+            <Route path="/notes" element={<NotesPage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
