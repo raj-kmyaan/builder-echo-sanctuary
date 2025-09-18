@@ -70,6 +70,8 @@ function SidebarNav() {
     if (user.role === "faculty") {
       return [
         { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+        { to: "/calendar", icon: CalendarDays, label: "Calendar" },
+        { to: "/tasks", icon: CheckSquare, label: "Tasks" },
         { to: "/attendance", icon: BookOpen, label: "Attendance" },
         { to: "/classes", icon: BookOpen, label: "My Classes" },
         { to: "/students", icon: Users2, label: "Students" },
