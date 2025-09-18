@@ -18,6 +18,16 @@ import ProfilePage from "@/pages/Profile";
 import TasksPage from "@/pages/Tasks";
 import NotesPage from "@/pages/Notes";
 import CalendarPage from "@/pages/Calendar";
+import MapPage from "@/pages/Map";
+import ResourceBookingPage from "@/pages/ResourceBooking";
+import HelpdeskPage from "@/pages/Helpdesk";
+import MarketplacePage from "@/pages/Marketplace";
+import StudyGroupsPage from "@/pages/StudyGroups";
+import AdminAnalyticsPage from "@/pages/admin/AdminAnalytics";
+import AdminBroadcastsPage from "@/pages/admin/AdminBroadcasts";
+import AdminTicketsPage from "@/pages/admin/AdminTickets";
+import AdminUsersPage from "@/pages/admin/AdminUsers";
+import GradingPage from "@/pages/Grading";
 
 const queryClient = new QueryClient();
 
