@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Download, LogIn, Plus, Save } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { scopeKey, getStudents as storeGetStudents, setStudents as storeSetStudents, addAttendance } from "@/lib/store";
+import { scopeKey, getStudents as storeGetStudents, setStudents as storeSetStudents, addAttendance, getAttendance } from "@/lib/store";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useRole } from "@/context/role";
 
@@ -324,7 +324,40 @@ export default function AttendancePage() {
         <CardHeader>
           <CardTitle>Recent Attendance Sessions</CardTitle>
         </CardHeader>
-        <CardContent className="text-muted-foreground">No attendance recorded yet.</CardContent>
+        <CardContent>
+          {(() => {
+            const rec = getAttendance(scopeKey(activeDept, year, semester)).slice(-5).reverse();
+            if (rec.length===0) return <div className="text-muted-foreground">No attendance recorded yet.</div>;
+            return (
+              <div className="rounded-lg border overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b text-left">
+                      <th className="p-3">Date</th>
+                      <th className="p-3">Subject</th>
+                      <th className="p-3">Present</th>
+                      <th className="p-3">Absent</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rec.map((r, i) => {
+                      const present = r.rows.filter(x=> x.present).length;
+                      const absent = r.rows.length - present;
+                      return (
+                        <tr key={r.date + r.subject + i} className="border-b">
+                          <td className="p-3">{r.date}</td>
+                          <td className="p-3">{r.subject}</td>
+                          <td className="p-3 text-green-600">{present}</td>
+                          <td className="p-3 text-red-600">{absent}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            );
+          })()}
+        </CardContent>
       </Card>
     </div>
   );
