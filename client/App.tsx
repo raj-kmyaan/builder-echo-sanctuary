@@ -15,6 +15,9 @@ import AttendancePage from "@/pages/Attendance";
 import TimetableWizardPage from "@/pages/TimetableWizard";
 import PlacementsPage from "@/pages/Placements";
 import ProfilePage from "@/pages/Profile";
+import TasksPage from "@/pages/Tasks";
+import NotesPage from "@/pages/Notes";
+import CalendarPage from "@/pages/Calendar";
 
 const queryClient = new QueryClient();
 
