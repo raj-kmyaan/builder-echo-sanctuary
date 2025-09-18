@@ -46,11 +46,12 @@ const App = () => (
             <Route path="/students" element={<Placeholder title={'Students'} />} />
             <Route path="/attendance" element={<AttendancePage />} />
             <Route path="/fees" element={<Placeholder title={'Fees'} />} />
-            <Route path="/marketplace" element={<Placeholder title={'Marketplace'} />} />
-            <Route path="/mentorship" element={<Placeholder title={'Mentorship'} />} />
+            <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/mentorship" element={<StudyGroupsPage />} />
             <Route path="/portfolio" element={<Placeholder title={'My Portfolio'} />} />
-            <Route path="/helpdesk" element={<Placeholder title={'Helpdesk'} />} />
-            <Route path="/map" element={<Placeholder title={'Interactive Campus Map'} />} />
+            <Route path="/helpdesk" element={<HelpdeskPage />} />
+            <Route path="/map" element={<MapPage />} />
+            <Route path="/resources" element={<ResourceBookingPage />} />
             <Route path="/settings" element={<Placeholder title={'Settings'} />} />
             <Route path="/timetable-wizard" element={<TimetableWizardPage />} />
             <Route path="/placements" element={<PlacementsPage />} />
@@ -59,6 +60,11 @@ const App = () => (
             <Route path="/tasks" element={<TasksPage />} />
             <Route path="/notes" element={<NotesPage />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+            <Route path="/admin/broadcasts" element={<AdminBroadcastsPage />} />
+            <Route path="/admin/tickets" element={<AdminTicketsPage />} />
+            <Route path="/admin/users" element={<AdminUsersPage />} />
+            <Route path="/grading" element={<GradingPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
